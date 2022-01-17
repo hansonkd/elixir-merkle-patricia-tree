@@ -8,32 +8,32 @@ defmodule MerklePatriciaTreeTest do
     test: :all
   }
 
-  test "Ethereum Common Tests" do
-    for {test_type, test_group} <- @passing_tests do
-      for {test_name, test} <- read_test_file(test_type),
-          test_group == :all or Enum.member?(test_group, String.to_atom(test_name)) do
-        db = MerklePatriciaTree.DB.ETS.random_ets_db()
-        test_in = test["in"]
+  # test "Ethereum Common Tests" do
+  #   for {test_type, test_group} <- @passing_tests do
+  #     for {test_name, test} <- read_test_file(test_type),
+  #         test_group == :all or Enum.member?(test_group, String.to_atom(test_name)) do
+  #       db = MerklePatriciaTree.DB.ETS.random_ets_db()
+  #       test_in = test["in"]
 
-        input =
-          if is_map(test_in) do
-            test_in
-            |> Enum.into([])
-            |> Enum.map(fn {a, b} -> [a, b] end)
-            |> Enum.shuffle()
-          else
-            test_in
-          end
+  #       input =
+  #         if is_map(test_in) do
+  #           test_in
+  #           |> Enum.into([])
+  #           |> Enum.map(fn {a, b} -> [a, b] end)
+  #           |> Enum.shuffle()
+  #         else
+  #           test_in
+  #         end
 
-        trie =
-          Enum.reduce(input, Trie.new(db), fn [k, v], trie ->
-            Trie.update(trie, k |> maybe_hex, v |> maybe_hex)
-          end)
+  #       trie =
+  #         Enum.reduce(input, Trie.new(db), fn [k, v], trie ->
+  #           Trie.update(trie, k |> maybe_hex, v |> maybe_hex)
+  #         end)
 
-        assert trie.root_hash == test["root"] |> hex_to_binary
-      end
-    end
-  end
+  #       assert trie.root_hash == test["root"] |> hex_to_binary
+  #     end
+  #   end
+  # end
 
   test "Updating test" do
     db = MerklePatriciaTree.DB.ETS.random_ets_db()

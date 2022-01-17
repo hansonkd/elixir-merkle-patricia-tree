@@ -54,8 +54,7 @@ defmodule MerklePatriciaTree.Utils do
   """
   @spec hash(binary) :: binary | {:error, term}
   def hash(bin) when is_binary(bin) do
-    {:ok, hash} = :enacl.generichash(@hash_bytes, bin)
-    hash
+    :enacl.generichash(@hash_bytes, bin)
   end
 
   def hash(_) do

@@ -18,7 +18,7 @@ defmodule MerklePatriciaTree.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger, :crypto]]
   end
 
   # Dependencies can be Hex packages:
@@ -41,10 +41,10 @@ defmodule MerklePatriciaTree.Mixfile do
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
       {:hex_prefix, "~> 0.1.0"},
       {:ex_rlp, "~> 0.3.0"},
-      {:keccakf1600, "~> 2.0.0", hex: :keccakf1600_orig},
+      {:keccakf1600, "~> 2.0", hex: :keccakf1600_otp23},
       {:exleveldb, "~> 0.11.1"},
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:enacl, github: "aeternity/enacl", ref: "2f50ba6", override: true}
+      {:enacl, "~> 1.2"}
     ]
   end
 end
